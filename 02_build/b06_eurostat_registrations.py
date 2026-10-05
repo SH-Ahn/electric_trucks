@@ -10,15 +10,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from config import PROC_DIR, RAW_DIR  # noqa: E402
-from countries import EU27  # noqa: E402
-
-ISO2 = {"AT": "AUT", "BE": "BEL", "BG": "BGR", "CY": "CYP", "CZ": "CZE", "DE": "DEU", "DK": "DNK",
-        "EE": "EST", "EL": "GRC", "ES": "ESP", "FI": "FIN", "FR": "FRA", "HR": "HRV", "HU": "HUN",
-        "IE": "IRL", "IT": "ITA", "LT": "LTU", "LU": "LUX", "LV": "LVA", "MT": "MLT", "NL": "NLD",
-        "PL": "POL", "PT": "PRT", "RO": "ROU", "SE": "SWE", "SI": "SVN", "SK": "SVK", "UK": "GBR",
-        "NO": "NOR", "IS": "ISL", "LI": "LIE", "CH": "CHE", "TR": "TUR", "RS": "SRB", "ME": "MNE",
-        "MK": "MKD", "AL": "ALB", "BA": "BIH", "XK": "XKX", "UA": "UKR", "MD": "MDA", "GE": "GEO",
-        "EU27_2020": "EU27"}
+from countries import EU27, EUROSTAT_GEO  # noqa: E402
 
 
 def main() -> None:
@@ -37,7 +29,7 @@ def main() -> None:
     d.columns.name = None
     d = d.rename(columns={"geo": "iso2", "TIME_PERIOD": "year", "TOTAL": "total", "ELC": "bev",
                           "HYD_FCELL": "fcev", "DIE": "diesel", "LNG": "lng", "CNG": "cng"})
-    d["iso3"] = d["iso2"].map(ISO2).fillna(d["iso2"])
+    d["iso3"] = d["iso2"].map(EUROSTAT_GEO).fillna(d["iso2"])
     zero = d[["bev"]].fillna(0).sum(axis=1) + d.get("fcev", 0).fillna(0)
     d["zev"] = zero.where(d["bev"].notna() | d.get("fcev", pd.Series(index=d.index)).notna())
     d["zev_share"] = d["zev"] / d["total"]

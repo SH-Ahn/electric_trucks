@@ -34,6 +34,17 @@ _MANUAL = {
 # BACI/Comtrade report Taiwan as 490 "Other Asia, nes" (ISO3 placeholder S19).
 _M49_EXTRA = {490: "TWN"}
 
+# Eurostat geo codes (ISO2 except EL = Greece, UK = United Kingdom, EU aggregates).
+EUROSTAT_GEO = {
+    "AT": "AUT", "BE": "BEL", "BG": "BGR", "CY": "CYP", "CZ": "CZE", "DE": "DEU", "DK": "DNK",
+    "EE": "EST", "EL": "GRC", "ES": "ESP", "FI": "FIN", "FR": "FRA", "HR": "HRV", "HU": "HUN",
+    "IE": "IRL", "IT": "ITA", "LT": "LTU", "LU": "LUX", "LV": "LVA", "MT": "MLT", "NL": "NLD",
+    "PL": "POL", "PT": "PRT", "RO": "ROU", "SE": "SWE", "SI": "SVN", "SK": "SVK", "UK": "GBR",
+    "NO": "NOR", "IS": "ISL", "LI": "LIE", "CH": "CHE", "TR": "TUR", "RS": "SRB", "ME": "MNE",
+    "MK": "MKD", "AL": "ALB", "BA": "BIH", "XK": "XKX", "UA": "UKR", "MD": "MDA", "GE": "GEO",
+    "EU27_2020": "EU27",
+}
+
 
 @lru_cache(maxsize=1)
 def _wb_names() -> dict[str, str]:

@@ -31,6 +31,7 @@ INDICATORS = {
     "PA.NUS.PPP": "PPP conversion factor, GDP, LCU per international $",
     "EG.IMP.CONS.ZS": "Energy imports, net, % of energy use",
     "EG.ELC.ACCS.ZS": "Access to electricity, % of population",
+    "LP.LPI.OVRL.XQ": "Logistics performance index: overall (1-5)",
     "EN.GHG.CO2.TR.MT.CE.AR5": "CO2 emissions from transport (energy), Mt CO2e",
     "EN.GHG.ALL.MT.CE.AR5": "Total GHG emissions excluding LULUCF, Mt CO2e",
     "EN.GHG.CO2.MT.CE.AR5": "CO2 emissions, total excluding LULUCF, Mt CO2e",

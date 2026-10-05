@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import csv
 import datetime as dt
+import subprocess
 import time
 from pathlib import Path
 
@@ -51,6 +52,15 @@ def get(url: str, *, params: dict | None = None, headers: dict | None = None,
     raise RuntimeError("unreachable")
 
 
+def _curl(url: str, tmp: Path, headers: dict | None, timeout: int) -> bool:
+    """Resumable curl transfer into ``tmp``; True on success."""
+    cmd = ["curl", "-sSfL", "-g", "--retry", "5", "--retry-delay", "10", "-C", "-",
+           "--max-time", str(timeout), "-o", str(tmp), url]
+    for k, v in (headers or {"User-Agent": USER_AGENT}).items():
+        cmd[1:1] = ["-H", f"{k}: {v}"]
+    return subprocess.run(cmd).returncode == 0
+
+
 def download(url: str, dest: Path, *, source: str, params: dict | None = None,
              headers: dict | None = None, overwrite: bool = False, note: str = "",
              timeout: int = 600) -> Path:
@@ -59,18 +69,25 @@ def download(url: str, dest: Path, *, source: str, params: dict | None = None,
     if dest.exists() and not overwrite:
         return dest
     tmp = dest.with_suffix(dest.suffix + ".part")
-    for attempt in range(4):
+    for attempt in range(8):
         try:
-            with SESSION.get(url, params=params, headers=headers, stream=True, timeout=timeout) as r:
+            done = tmp.stat().st_size if tmp.exists() else 0
+            hdr = dict(headers or {})
+            if done:
+                hdr["Range"] = f"bytes={done}-"  # resume a partial transfer
+            with SESSION.get(url, params=params, headers=hdr, stream=True, timeout=timeout) as r:
                 r.raise_for_status()
-                with tmp.open("wb") as f:
+                mode = "ab" if done and r.status_code == 206 else "wb"
+                with tmp.open(mode) as f:
                     for chunk in r.iter_content(chunk_size=1 << 20):
                         f.write(chunk)
             break
-        except (requests.ConnectionError, requests.Timeout):
-            if attempt == 3:
+        except (requests.ConnectionError, requests.Timeout, requests.exceptions.ChunkedEncodingError):
+            if attempt >= 2 and not params and _curl(url, tmp, headers, timeout):
+                break  # some servers (e.g. ORNL) reset Python's TLS handshake but accept curl
+            if attempt == 7:
                 raise
-            time.sleep(2 ** attempt * 3)
+            time.sleep(min(2 ** attempt * 3, 60))
     tmp.replace(dest)
     log_download(source, url if not params else f"{url}?{requests.compat.urlencode(params)}", dest, note)
     return dest

@@ -29,6 +29,12 @@ SERIES = {
     "TRUCKD11": "ATA truck tonnage index, SA",
     "TSIFRGHT": "Freight transportation services index (BTS), SA",
     "CES4348400001": "All employees: truck transportation, thousands, SA",
+    # Freight markets (derived demand for trucks)
+    "FRGSHPUSM649NCIS": "Cass Freight Index: shipments, NSA",
+    "FRGEXPUSM649NCIS": "Cass Freight Index: expenditures, NSA",
+    "PCU484121484121": "PPI by industry: general freight trucking, long-distance truckload",
+    "PCU484122484122": "PPI by industry: general freight trucking, long-distance less-than-truckload",
+    "RAILFRTCARLOADSD11": "Rail freight carloads, SA",
     # Energy prices
     "GASDESW": "US No. 2 diesel retail price, all types, USD/gal, weekly (EIA)",
     "DDFUELUSGULF": "US Gulf Coast ultra-low-sulfur No. 2 diesel spot price, USD/gal, daily (EIA)",

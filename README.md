@@ -19,7 +19,7 @@ electric_trucks/
 ```
 
 `config.py` resolves these paths relative to this folder; set `ET_PROJECT_ROOT` to run from a
-clone elsewhere. Multi-GB downloads (BACI) are cached in `~/.cache/electric_trucks` (`ET_CACHE`).
+clone elsewhere. Large downloads (BACI, Commodity Flow Survey, FAF5, TROPOMI grids) are cached in `~/.cache/electric_trucks` (`ET_CACHE`).
 
 ## Pipeline
 
@@ -47,8 +47,18 @@ python run_all.py --only b05 e05 # selected scripts
 | collect | `c13_bis_policy_rates.py` | Central bank policy rates |
 | collect | `c14_census_trade.py` | US monthly HS10 trade by partner (needs `CENSUS_API_KEY`) |
 | collect | `c16_vius.py` | US Vehicle Inventory and Use Survey 2021 microdata |
+| collect | `c17_eurostat_freight.py` | Eurostat road freight by distance class, operation, own account, vehicle age, goods |
+| collect | `c18_commodity_flow_survey.py` | US Commodity Flow Survey microdata (2017 PUF, 2022 PUMS), aggregated by mode, industry, commodity, distance |
+| collect | `c19_faf5_freight.py` | Freight Analysis Framework 5.7.1 flows by mode, commodity and distance band |
+| collect | `c20_germany_truck_toll_index.py` | Germany's daily truck-toll mileage index (Destatis) |
+| collect | `c21_climate_trace.py` | Climate TRACE road-transport emissions by country; steel, cement, coal and ore sites |
+| collect | `c22_tropomi_no2.py` | Monthly TROPOMI NO2 (KNMI TEMIS), 20 km means around zone cities, corridors, ports, steel plants |
+| collect | `c23_world_port_index.py` | NGA World Port Index |
 | build | `b01`-`b08` | Tidy panels: IEA, trade, energy prices, policy panel, registries, Eurostat, covariates, North America |
+| build | `b09_freight_usage.py` | Freight-use panels: EU country profiles merged with ZEV shares, quarterly tonne-km, goods x distance, US CFS and FAF5, toll index |
+| build | `b10_remote_sensing.py` | NO2 site and group panels, heavy-industry sites by country, road emissions by country |
 | explore | `e01`-`e07` | Figures and tables in `04_output/` |
+| explore | `e08_freight_usage.py`, `e09_remote_sensing.py` | Duty cycles vs adoption, short-haul freight by industry, toll index; satellite NO2 contrasts |
 
 The hand-curated policy database (`03_data/01_raw/policy/`) is research data, kept outside the
 repository; `02_build/b04_policy_panel.py` turns it into a country x quarter panel.
