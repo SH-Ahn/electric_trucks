@@ -6,8 +6,8 @@ This is the source for event studies around the Section 232 MHDV tariff
 (effective 2025-11-01) and the Canada/Mexico flows behind it.
 
 REQUIRES a free API key (https://api.census.gov/data/key_signup.html), exported as
-CENSUS_API_KEY. Without it the script exits. NOT YET RUN: written and checked
-against the API documentation, but untested because no key was available.
+CENSUS_API_KEY. Without it the script exits. First run 5 Oct 2026: 2019-01 to 2026-07,
+about 200,000 import and 240,000 export rows.
 
 API docs: https://www.census.gov/foreign-trade/reference/guides/Guide_to_International_Trade_Datasets.pdf
 """
