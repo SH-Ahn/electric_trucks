@@ -1,0 +1,43 @@
+# This repository holds code only. Data, outputs, documentation and references
+# live in sibling folders of the Dropbox project root (../03_data, ../04_output,
+# ../01_project_documentation, ../05_reference) and are never committed.
+
+# Data files that might be written next to scripts by mistake
+*.csv
+*.tsv
+*.parquet
+*.feather
+*.dta
+*.xlsx
+*.xls
+*.ods
+*.zip
+*.gz
+*.json
+*.pdf
+*.png
+*.svg
+
+# Secrets (API keys) belong in environment variables or a local .env
+.env
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# R / Stata
+.Rhistory
+.RData
+.Rproj.user/
+*.log
+*.smcl
+
+# OS / editors
+.DS_Store
+Icon?
+.vscode/
+.idea/
