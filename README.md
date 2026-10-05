@@ -16,9 +16,13 @@ electric_trucks/
 │   └── 03_purchased/           licensed truck & bus sales data (country x model x quarter)
 ├── 04_output/{01_figure,02_table}/
 └── 05_reference/               reports and papers
+└── 06_issues/<issue>/          git worktree of branch <issue> (e.g. issue1), where work happens
 ```
 
-`config.py` resolves these paths relative to this folder; set `ET_PROJECT_ROOT` to run from a
+`02_code/` tracks `main`. Work for an issue is done on its branch in `06_issues/<issue>/`,
+with the issue number in every commit subject (e.g. `(#1)`), and reaches `main` through a pull request.
+
+`config.py` finds the project root by searching upward for `03_data/`; set `ET_PROJECT_ROOT` to run from a
 clone elsewhere. Large downloads (BACI, Commodity Flow Survey, FAF5, TROPOMI grids) are cached in `~/.cache/electric_trucks` (`ET_CACHE`).
 
 ## Pipeline

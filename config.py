@@ -13,7 +13,9 @@ live in sibling folders of the Dropbox project root and are not version-controll
     ├── 04_output/{01_figure,02_table}/
     └── 05_reference/
 
-Set ``ET_PROJECT_ROOT`` to run the code from a clone outside the Dropbox folder.
+Issue branches are checked out as git worktrees under ``06_issues/<issue>/``, so the
+project root is found by searching upward for ``03_data/``. Set ``ET_PROJECT_ROOT`` to
+run the code from a clone outside the Dropbox folder.
 """
 from __future__ import annotations
 
@@ -21,7 +23,18 @@ import os
 from pathlib import Path
 
 CODE_DIR = Path(__file__).resolve().parent
-PROJECT_ROOT = Path(os.environ.get("ET_PROJECT_ROOT", CODE_DIR.parent))
+
+
+def _find_root() -> Path:
+    if os.environ.get("ET_PROJECT_ROOT"):
+        return Path(os.environ["ET_PROJECT_ROOT"])
+    for d in CODE_DIR.parents:
+        if (d / "03_data").is_dir():
+            return d
+    return CODE_DIR.parent
+
+
+PROJECT_ROOT = _find_root()
 
 DOC_DIR = PROJECT_ROOT / "01_project_documentation"
 DATA_DIR = PROJECT_ROOT / "03_data"
