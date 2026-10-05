@@ -38,11 +38,13 @@ FAMILY = {
     "disclosure_accounting": {"emissions_accounting_rule"},
     "vehicle_tax": {"excise_tax"},
     "industrial_policy": {"procurement_resilience_criteria"},
+    "technical_regulation": {"type_approval_framework", "technical_regulation_safety", "battery_regulation",
+                             "charging_standard", "cybersecurity_regulation", "international_harmonization"},
 }
 TRADE_INSTRUMENTS = {"tariff_national_security", "tariff_retaliatory", "tariff_emergency", "surtax",
                      "tariff_mfn_increase", "non_tariff_fee", "import_restriction", "countervailing_duty",
                      "tariff_reduction", "tariff_rate_quota", "rules_of_origin",
-                     "trade_agreement_review"}
+                     "trade_agreement_review", "connected_vehicle_restriction"}
 
 
 # EU acts that only enable member-state measures (e.g. optional toll exemptions) are kept at
