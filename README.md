@@ -70,6 +70,10 @@ python run_all.py --only b05 e05 # selected scripts
 | collect | `c33_eia_state_electricity_prices.py` | EIA-861M electricity prices by US state, sector and month |
 | collect | `c34_bast_truck_counts.py` | BASt counting stations: daily heavy-vehicle traffic on German motorways and federal roads, with coordinates |
 | collect | `c35_carb_large_entity_fleets.py` | CARB Large Entity Reporting (2021): California large-fleet use patterns and holding periods |
+| collect | `c36_eafo.py` | European Alternative Fuels Observatory: charging points by power class and for heavy-duty vehicles, AF truck/bus registrations and fleets, 34 pages |
+| collect | `c37_ted_bus_truck_tenders.py` | TED procurement notices for buses and municipal trucks (Search API, eForms winners) and filtered CSV bulk award files 2017-2023 (`--bulk-only`) |
+| collect | `c38_china_miit_catalogue.py` | China MIIT purchase-tax catalogues of new-energy vehicle models (Word attachments parsed via `textutil`; macOS) |
+| collect | `c39_hvip_vouchers.py` | California HVIP voucher records (voucher map API) and eligible-vehicle catalog |
 | build | `b01`-`b08` | Tidy panels: IEA, trade, energy prices, policy panel, registries, Eurostat, covariates, North America |
 | build | `b09_freight_usage.py` | Freight-use panels: EU country profiles merged with ZEV shares, quarterly tonne-km, goods x distance, US CFS and FAF5, toll index |
 | build | `b10_remote_sensing.py` | NO2 site and group panels, heavy-industry sites by country, road emissions by country |
@@ -85,6 +89,7 @@ python run_all.py --only b05 e05 # selected scripts
 | explore | `e12_policy_patterns.py`, `e13_eu_hdv.py` | Heavy-duty policy portfolios and sequencing (IEA); EU zero-emission shares by duty cycle, country, OEM |
 | explore | `e14_tariff_bias.py`, `e15_infrastructure_fleets_fuel_tax.py`, `e16_tbt_exposure_policy_adoption.py` | Environmental bias of vehicle tariffs; charging, fleet structure and fuel taxes; TBTs vs import exposure and national policy vs adoption |
 | explore | `e17_structural_facts.py` | Composition vs within decomposition; empirical Bayes OEM x country shares; mass bunching; use patterns; traffic concentration; Gulf exposure; mileage-weighted allocation |
+| explore | `e18_procurement_china_hvip_eafo.py` | Home bias and Chinese brands in EU bus tenders; Chinese electric-truck model entry; HVIP vouchers; truck charging per electric truck |
 
 The hand-curated policy database (`03_data/01_raw/policy/`) is research data, kept outside the
 repository; `02_build/b04_policy_panel.py` turns it into a country x quarter panel.
