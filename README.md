@@ -58,11 +58,27 @@ python run_all.py --only b05 e05 # selected scripts
 | collect | `c21_climate_trace.py` | Climate TRACE road-transport emissions by country; steel, cement, coal and ore sites |
 | collect | `c22_tropomi_no2.py` | Monthly TROPOMI NO2 (KNMI TEMIS), 20 km means around zone cities, corridors, ports, steel plants |
 | collect | `c23_world_port_index.py` | NGA World Port Index |
+| collect | `c24_wto_tbt.py` | WTO ePing TBT notifications on vehicles, parts, batteries, charging, fuels (bulk file, cached) |
+| collect | `c25_iea_policies.py` | IEA Policies database: 13,200 energy and climate policies, all countries |
+| collect | `c26_wits_tariffs.py` | WITS/UNCTAD TRAINS applied MFN tariffs for electric vs diesel trucks, tractors, buses, cars, batteries, engines |
+| collect | `c27_afdc_hd_stations.py` | NREL/DOE AFDC fuelling and charging stations that accept medium or heavy vehicles |
+| collect | `c28_oecd_carbon_rates_itf.py` | OECD effective carbon rates on road fuels; ITF goods-vehicle registrations and road traffic |
+| collect | `c29_fmcsa_fleet_structure.py` | FMCSA Company Census: active US carriers aggregated by power units (no identifiers downloaded) |
+| collect | `c30_eea_hdv_co2.py` | EEA heavy-duty CO2 monitoring: EU truck/bus registrations (Jul 2021-Jun 2025) and VECTO duty-cycle records, aggregated |
 | build | `b01`-`b08` | Tidy panels: IEA, trade, energy prices, policy panel, registries, Eurostat, covariates, North America |
 | build | `b09_freight_usage.py` | Freight-use panels: EU country profiles merged with ZEV shares, quarterly tonne-km, goods x distance, US CFS and FAF5, toll index |
 | build | `b10_remote_sensing.py` | NO2 site and group panels, heavy-industry sites by country, road emissions by country |
+| build | `b12_us_trade.py` | US truck, bus, parts and battery trade by segment, partner, month: units, duties, effective tariffs |
+| build | `b13_wto_tbt.py` | TBT notifications tagged by topic (EV/battery/charging, emissions, safety, tyres, fuels, cyber) |
+| build | `b14_iea_policies.py` | IEA policies tagged by theme and heavy-duty/freight relevance; country x year counts |
+| build | `b15_eu_hdv.py` | EU heavy-duty registrations and VECTO sub-groups mapped to duty cycles and OEM groups |
+| build | `b16_tariff_gaps.py` | Electric vs diesel tariff gaps by country, year and vehicle type |
+| build | `b17_infrastructure_fleets_fuel_tax.py` | US truck-capable stations, US fleet-size bins, carbon rates on road fuels, ITF registrations |
 | explore | `e01`-`e07` | Figures and tables in `04_output/` |
 | explore | `e08_freight_usage.py`, `e09_remote_sensing.py` | Duty cycles vs adoption, short-haul freight by industry, toll index; satellite NO2 contrasts |
+| explore | `e10_us_trade.py`, `e11_ntm.py` | Section 232 trade effects, reclassification, batteries and used tractors; TBT notifications |
+| explore | `e12_policy_patterns.py`, `e13_eu_hdv.py` | Heavy-duty policy portfolios and sequencing (IEA); EU zero-emission shares by duty cycle, country, OEM |
+| explore | `e14_tariff_bias.py`, `e15_infrastructure_fleets_fuel_tax.py`, `e16_tbt_exposure_policy_adoption.py` | Environmental bias of vehicle tariffs; charging, fleet structure and fuel taxes; TBTs vs import exposure and national policy vs adoption |
 
 The hand-curated policy database (`03_data/01_raw/policy/`) is research data, kept outside the
 repository; `02_build/b04_policy_panel.py` turns it into a country x quarter panel.

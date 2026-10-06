@@ -30,7 +30,7 @@ FAMILIES = [
     ("CO2 / fuel-economy standard", {"co2_fleet_standard", "co2_fuel_economy_standard"}),
     ("ZEV mandate, zone or procurement", {"zev_sales_mandate", "fleet_mandate", "zero_emission_zone",
                                           "public_procurement_mandate", "ice_sales_phaseout"}),
-    ("Road-charge advantage", {"road_charging_exemption", "road_charging_co2"}),
+    ("Road-charge advantage", {"road_charging_exemption", "road_charging_co2", "port_access_fee"}),
     ("Trade barrier", {"tariff_national_security", "tariff_retaliatory", "surtax", "tariff_mfn_increase",
                        "non_tariff_fee", "countervailing_duty"}),
 ]
