@@ -14,7 +14,9 @@ aggregated; VINs are hashed by the EEA and nothing identifying is kept:
 
 The ~3 GB of zipped CSVs are cached outside Dropbox.
 Source: https://sdi.eea.europa.eu/datastore/public/eea_t_co2-emission-hdv_p_2024-2025_v01_r00
-Output: 03_data/01_raw/eea_hdv/eea_hdv_registrations.csv, eea_hdv_vecto_groups.csv
+Output: 03_data/01_raw/eea_hdv/eea_hdv_registrations.csv, eea_hdv_vecto_groups.csv,
+        eea_hdv_mass_distribution.csv (exact permissible mass, for bunching at weight thresholds)
+Run with --mass to rebuild only the mass distribution.
 """
 import base64
 import sys
@@ -133,8 +135,34 @@ def vecto(ids: pd.DataFrame) -> pd.DataFrame:
     return pd.concat(out).groupby(KEYS, dropna=False).sum().reset_index()
 
 
+def mass_distribution() -> pd.DataFrame:
+    """Counts by period x category x powertrain x exact permissible mass (kg), trucks and vans."""
+    cols = ["vehicle_id", "Electric", "Hybrid", "FT", "VehicleCategoryCode", "TechnPermMaxLadenMass",
+            "RegistrationDateClean"]
+    parts = []
+    for c in chunks(fetch(RELEASE, "memberstate_vehicle"), cols):
+        c.columns = [x.lstrip("\ufeff") for x in c.columns]
+        cat = c.VehicleCategoryCode.fillna("").str.upper().str[:2]
+        c = c[cat.isin(["N1", "N2", "N3"])]
+        kg = pd.to_numeric(c.TechnPermMaxLadenMass, errors="coerce")
+        parts.append(pd.DataFrame({
+            "vehicle_id": c.vehicle_id, "category": cat[c.index], "mass_kg": kg.where(kg > 100, kg * 1000).round(),
+            "month": pd.to_datetime(c.RegistrationDateClean, errors="coerce").dt.strftime("%Y-%m"),
+            "powertrain": powertrain(c.Electric.str.strip().str.lower().eq("yes"),
+                                     c.Hybrid.str.strip().str.lower().eq("yes"), c.FT)}))
+    d = pd.concat(parts, ignore_index=True).drop_duplicates("vehicle_id", keep="last")
+    d["period"] = period_of(d.month)
+    return d.groupby(["period", "category", "powertrain", "mass_kg"]).size().rename("vehicles").reset_index()
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
+    m = mass_distribution()
+    m.to_csv(OUT / "eea_hdv_mass_distribution.csv", index=False)
+    log_download("EEA HDV CO2 monitoring (mass distribution)", BASE, OUT / "eea_hdv_mass_distribution.csv",
+                 "period x category x powertrain x permissible mass (kg)")
+    if "--mass" in sys.argv:
+        return
     reg, ids = registrations()
     reg.to_csv(OUT / "eea_hdv_registrations.csv", index=False)
     log_download("EEA HDV CO2 monitoring (aggregated registrations)", BASE, OUT / "eea_hdv_registrations.csv",

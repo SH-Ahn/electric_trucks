@@ -64,7 +64,12 @@ python run_all.py --only b05 e05 # selected scripts
 | collect | `c27_afdc_hd_stations.py` | NREL/DOE AFDC fuelling and charging stations that accept medium or heavy vehicles |
 | collect | `c28_oecd_carbon_rates_itf.py` | OECD effective carbon rates on road fuels; ITF goods-vehicle registrations and road traffic |
 | collect | `c29_fmcsa_fleet_structure.py` | FMCSA Company Census: active US carriers aggregated by power units (no identifiers downloaded) |
-| collect | `c30_eea_hdv_co2.py` | EEA heavy-duty CO2 monitoring: EU truck/bus registrations (Jul 2021-Jun 2025) and VECTO duty-cycle records, aggregated |
+| collect | `c30_eea_hdv_co2.py` | EEA heavy-duty CO2 monitoring: EU truck/bus registrations (Jul 2021-Jun 2025) and VECTO duty-cycle records, aggregated; exact permissible mass distribution (`--mass`) |
+| collect | `c31_baci_energy_trade.py` | BACI bilateral trade in crude oil, refined products, LNG, gas, coal (exposure shares for shift-share designs) |
+| collect | `c32_osm_truck_charging.py` | OpenStreetMap: truck-tagged charging sites; motorway services and rest areas in Europe (candidate sites) |
+| collect | `c33_eia_state_electricity_prices.py` | EIA-861M electricity prices by US state, sector and month |
+| collect | `c34_bast_truck_counts.py` | BASt counting stations: daily heavy-vehicle traffic on German motorways and federal roads, with coordinates |
+| collect | `c35_carb_large_entity_fleets.py` | CARB Large Entity Reporting (2021): California large-fleet use patterns and holding periods |
 | build | `b01`-`b08` | Tidy panels: IEA, trade, energy prices, policy panel, registries, Eurostat, covariates, North America |
 | build | `b09_freight_usage.py` | Freight-use panels: EU country profiles merged with ZEV shares, quarterly tonne-km, goods x distance, US CFS and FAF5, toll index |
 | build | `b10_remote_sensing.py` | NO2 site and group panels, heavy-industry sites by country, road emissions by country |
@@ -79,6 +84,7 @@ python run_all.py --only b05 e05 # selected scripts
 | explore | `e10_us_trade.py`, `e11_ntm.py` | Section 232 trade effects, reclassification, batteries and used tractors; TBT notifications |
 | explore | `e12_policy_patterns.py`, `e13_eu_hdv.py` | Heavy-duty policy portfolios and sequencing (IEA); EU zero-emission shares by duty cycle, country, OEM |
 | explore | `e14_tariff_bias.py`, `e15_infrastructure_fleets_fuel_tax.py`, `e16_tbt_exposure_policy_adoption.py` | Environmental bias of vehicle tariffs; charging, fleet structure and fuel taxes; TBTs vs import exposure and national policy vs adoption |
+| explore | `e17_structural_facts.py` | Composition vs within decomposition; empirical Bayes OEM x country shares; mass bunching; use patterns; traffic concentration; Gulf exposure; mileage-weighted allocation |
 
 The hand-curated policy database (`03_data/01_raw/policy/`) is research data, kept outside the
 repository; `02_build/b04_policy_panel.py` turns it into a country x quarter panel.
